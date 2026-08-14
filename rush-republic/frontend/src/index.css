@@ -1,13 +1,3 @@
-/* ---------------------------------------------------------------------
-   Rush Republic — design tokens
-   A disciplined black & white corporate system. No color accents;
-   hierarchy comes from weight, scale, spacing and hairline rules.
------------------------------------------------------------------------- */
-
-/* Mona Sans — GitHub's variable font (not on Google Fonts, self-hosted
-   via the Fontsource CDN). The "Condensed" look is produced with the
-   font's built-in width axis (font-stretch), not a separate family. */
-  
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
 * {
   margin: 0;
