@@ -7,6 +7,22 @@
 /* Mona Sans — GitHub's variable font (not on Google Fonts, self-hosted
    via the Fontsource CDN). The "Condensed" look is produced with the
    font's built-in width axis (font-stretch), not a separate family. */
+  
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+input,
+button,
+select,
+textarea {
+  font-family: "Mona Sans", "Manrope", sans-serif;
+}
+
 @font-face {
   font-family: 'Mona Sans';
   font-style: normal;

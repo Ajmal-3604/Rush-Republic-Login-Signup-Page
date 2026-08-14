@@ -107,74 +107,82 @@ export default function Signup() {
     <div className="rr-auth">
       <Toast message="Account created successfully" show={showToast} onDone={handleToastDone} />
 
-      <div className="rr-auth__panel">
-        <div className="rr-auth__brand">
-          <img src={logo} alt="Rush Republic" className="rr-auth__logo" />
-          <h1 className="rr-auth__company">Rush Republic</h1>
-          <p className="rr-auth__tagline">Employee Management Portal</p>
+      <div className="rr-auth__panel rr-auth__panel--landscape">
+        {/* ── Left: branding ─────────────────────────────── */}
+        <div className="rr-auth__brand-panel">
+          <div className="rr-auth__brand">
+            <img src={logo} alt="Rush Republic" className="rr-auth__logo" />
+            <h1 className="rr-auth__company">Rush Republic</h1>
+            <p className="rr-auth__tagline">Employee Management Portal</p>
+          </div>
         </div>
-        <hr className="rr-auth__divider" />
-        <h2 className="rr-auth__title">Create account</h2>
 
-        {formError && <div className="rr-form-error">{formError}</div>}
+        {/* ── Right: form ────────────────────────────────── */}
+        <div className="rr-auth__form-panel">
+          <h2 className="rr-auth__title">Create account</h2>
 
-        <form onSubmit={handleSubmit} noValidate>
-          <div className="rr-field">
-            <label htmlFor="username">Username</label>
-            <input id="username" name="username" value={form.username} onChange={handleChange} />
-            {fieldErrors.username && <div className="rr-field-error">{fieldErrors.username}</div>}
-          </div>
+          {formError && <div className="rr-form-error">{formError}</div>}
 
-          <div className="rr-field">
-            <label htmlFor="email">Email</label>
-            <input id="email" name="email" type="email" value={form.email} onChange={handleChange} />
-            {fieldErrors.email && <div className="rr-field-error">{fieldErrors.email}</div>}
-          </div>
+          <form onSubmit={handleSubmit} noValidate className="rr-auth__form">
+            <div className="rr-auth__form-grid">
+              <div className="rr-field">
+                <label htmlFor="username">Username</label>
+                <input id="username" name="username" value={form.username} onChange={handleChange} />
+                {fieldErrors.username && <div className="rr-field-error">{fieldErrors.username}</div>}
+              </div>
 
-          <div className="rr-field">
-            <label htmlFor="contact">Contact number</label>
-            <input id="contact" name="contact" value={form.contact} onChange={handleChange} />
-            {fieldErrors.contact && <div className="rr-field-error">{fieldErrors.contact}</div>}
-          </div>
+              <div className="rr-field">
+                <label htmlFor="email">Email</label>
+                <input id="email" name="email" type="email" value={form.email} onChange={handleChange} />
+                {fieldErrors.email && <div className="rr-field-error">{fieldErrors.email}</div>}
+              </div>
 
-          <div className="rr-field">
-            <label htmlFor="password">Password</label>
-            <input id="password" name="password" type="password" value={form.password} onChange={handleChange} />
-            {fieldErrors.password && <div className="rr-field-error">{fieldErrors.password}</div>}
-          </div>
+              <div className="rr-field">
+                <label htmlFor="contact">Contact number</label>
+                <input id="contact" name="contact" value={form.contact} onChange={handleChange} />
+                {fieldErrors.contact && <div className="rr-field-error">{fieldErrors.contact}</div>}
+              </div>
 
-          <div className="rr-field">
-            <label htmlFor="confirm_password">Confirm password</label>
-            <input
-              id="confirm_password"
-              name="confirm_password"
-              type="password"
-              value={form.confirm_password}
-              onChange={handleChange}
-            />
-            {fieldErrors.confirm_password && <div className="rr-field-error">{fieldErrors.confirm_password}</div>}
-          </div>
+              <div className="rr-field">
+                <label htmlFor="department">Department</label>
+                <select id="department" name="department" value={form.department} onChange={handleChange}>
+                  {DEPARTMENTS.map((d) => (
+                    <option key={d.value} value={d.value}>
+                      {d.label}
+                    </option>
+                  ))}
+                </select>
+                {fieldErrors.department && <div className="rr-field-error">{fieldErrors.department}</div>}
+              </div>
 
-          <div className="rr-field">
-            <label htmlFor="department">Department</label>
-            <select id="department" name="department" value={form.department} onChange={handleChange}>
-              {DEPARTMENTS.map((d) => (
-                <option key={d.value} value={d.value}>
-                  {d.label}
-                </option>
-              ))}
-            </select>
-            {fieldErrors.department && <div className="rr-field-error">{fieldErrors.department}</div>}
-          </div>
+              <div className="rr-field">
+                <label htmlFor="password">Password</label>
+                <input id="password" name="password" type="password" value={form.password} onChange={handleChange} />
+                {fieldErrors.password && <div className="rr-field-error">{fieldErrors.password}</div>}
+              </div>
 
-          <button type="submit" className="rr-submit" disabled={submitting}>
-            {submitting ? 'Creating account…' : 'Sign up'}
-          </button>
-        </form>
+              <div className="rr-field">
+                <label htmlFor="confirm_password">Confirm password</label>
+                <input
+                  id="confirm_password"
+                  name="confirm_password"
+                  type="password"
+                  value={form.confirm_password}
+                  onChange={handleChange}
+                />
+                {fieldErrors.confirm_password && <div className="rr-field-error">{fieldErrors.confirm_password}</div>}
+              </div>
+            </div>
 
-        <p className="rr-auth__switch">
-          Already have an account? <Link to="/login">Log in</Link>
-        </p>
+            <button type="submit" className="rr-submit" disabled={submitting}>
+              {submitting ? 'Creating account…' : 'Sign up'}
+            </button>
+          </form>
+
+          <p className="rr-auth__switch">
+            Already have an account? <Link to="/login">Log in</Link>
+          </p>
+        </div>
       </div>
     </div>
   );

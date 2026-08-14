@@ -98,7 +98,7 @@
 .rr-field input,
 .rr-field select {
   width: 100%;
-  padding: 10px 14px;
+  padding: 6px 6px;
   border: 1px solid var(--rr-line);
   background: var(--rr-white);
   font-family: var(--rr-font-body);
@@ -262,3 +262,185 @@
     margin-bottom: 10px;
   }
 }
+
+.rr-auth__panel--landscape {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  width: 100%;
+  max-width: 920px;
+  max-height: calc(100vh - 64px);
+  margin: 0 auto;
+  border: 1px solid var(--rr-black);
+  background: var(--rr-white);
+  overflow: hidden;
+  padding: 0;
+}
+
+/* ── Left: brand panel (solid contrast block) ─────────────── */
+
+.rr-auth__brand-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 32px;
+  background: var(--rr-white);
+  border-right: 1px solid #e0dcdc;
+}
+
+.rr-auth__brand-panel .rr-auth__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.rr-auth__panel--landscape .rr-auth__logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.rr-auth__panel--landscape .rr-auth__company {
+  font-family: var(--rr-font-display);
+  font-size: clamp(24px, 2.6vw, 30px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--rr-black);
+  margin: 0;
+}
+
+.rr-auth__panel--landscape .rr-auth__tagline {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.6);
+  margin: 0;
+  font-family: var(--rr-font-body, 'Manrope', sans-serif);
+}
+
+/* ── Right: form panel ─────────────────────────────────────── */
+
+.rr-auth__form-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  padding: 36px 40px;
+  overflow-y: auto;
+}
+
+.rr-auth__panel--landscape .rr-auth__title {
+  font-family: var(--rr-font-display);
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: var(--rr-black);
+}
+
+.rr-auth__panel--landscape .rr-auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rr-auth__form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 18px;
+}
+
+.rr-auth__form-grid .rr-field {
+  margin: 0;
+}
+
+.rr-auth__panel--landscape .rr-submit {
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.rr-auth__panel--landscape .rr-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.rr-auth__panel--landscape .rr-auth__switch {
+  margin: 0;
+  text-align: center;
+}
+
+/* ── Page-level fit: no scroll on the auth route ───────────── */
+
+.rr-auth:has(.rr-auth__panel--landscape) {
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* ── Tablet: keep two columns, tighten spacing ─────────────── */
+
+@media (max-width: 900px) {
+  .rr-auth__panel--landscape {
+    max-width: 760px;
+  }
+
+  .rr-auth__brand-panel {
+    padding: 30px 26px;
+  }
+
+  .rr-auth__form-panel {
+    padding: 28px 30px;
+  }
+}
+
+/* ── Mobile: stack, branding on top ────────────────────────── */
+
+@media (max-width: 640px) {
+  .rr-auth:has(.rr-auth__panel--landscape) {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .rr-auth__panel--landscape {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    max-height: none;
+    height: 100vh;
+    height: 100dvh;
+    border: none;
+  }
+
+  .rr-auth__brand-panel {
+    border-right: none;
+    border-bottom: 1px solid var(--rr-line);
+    padding: 20px;
+    flex: none;
+  }
+
+  .rr-auth__brand-panel .rr-auth__brand {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .rr-auth__panel--landscape .rr-auth__logo {
+    width: 38px;
+    height: 38px;
+  }
+
+  .rr-auth__panel--landscape .rr-auth__company {
+    font-size: 18px;
+  }
+
+  .rr-auth__form-panel {
+    padding: 20px 20px 26px;
+  }
+
+  .rr-auth__form-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+
+
+
