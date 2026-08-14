@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth, getHomeRouteForDepartment } from '../context/AuthContext';
+import Toast from '../components/Toast';
 import './Auth.css';
 import logo from '../assets/rush-republic-logo.png';
 
@@ -11,6 +12,8 @@ export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [pendingDepartment, setPendingDepartment] = useState(null);
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -22,20 +25,27 @@ export default function Login() {
     setSubmitting(true);
     try {
       const user = await login(form.email, form.password);
-      navigate(getHomeRouteForDepartment(user.department), { replace: true });
+      setPendingDepartment(user.department);
+      setShowToast(true);
     } catch (err) {
       const detail =
         err.response?.data?.detail ||
         err.response?.data?.non_field_errors?.[0] ||
         'Invalid email or password.';
       setError(detail);
-    } finally {
       setSubmitting(false);
     }
   };
 
+  const handleToastDone = () => {
+    setShowToast(false);
+    navigate(getHomeRouteForDepartment(pendingDepartment), { replace: true });
+  };
+
   return (
     <div className="rr-auth">
+      <Toast message="Logged in successfully" show={showToast} onDone={handleToastDone} />
+
       <div className="rr-auth__panel">
         <div className="rr-auth__brand">
           <img src={logo} alt="Rush Republic" className="rr-auth__logo" />

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import Toast from '../components/Toast';
 import './Auth.css';
 import logo from '../assets/rush-republic-logo.png';
 
@@ -36,8 +37,8 @@ export default function Signup() {
   const [form, setForm] = useState(initialForm);
   const [fieldErrors, setFieldErrors] = useState({});
   const [formError, setFormError] = useState('');
-  const [success, setSuccess] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -74,15 +75,13 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormError('');
-    setSuccess('');
 
     if (!validate()) return;
 
     setSubmitting(true);
     try {
       await signup(form);
-      setSuccess('Account created successfully. Redirecting to login…');
-      setTimeout(() => navigate('/login', { replace: true }), 1400);
+      setShowToast(true);
     } catch (err) {
       const data = err.response?.data;
       if (data && typeof data === 'object') {
@@ -95,13 +94,19 @@ export default function Signup() {
       } else {
         setFormError('Something went wrong. Please try again.');
       }
-    } finally {
       setSubmitting(false);
     }
   };
 
+  const handleToastDone = () => {
+    setShowToast(false);
+    navigate('/login', { replace: true });
+  };
+
   return (
     <div className="rr-auth">
+      <Toast message="Account created successfully" show={showToast} onDone={handleToastDone} />
+
       <div className="rr-auth__panel">
         <div className="rr-auth__brand">
           <img src={logo} alt="Rush Republic" className="rr-auth__logo" />
@@ -112,7 +117,6 @@ export default function Signup() {
         <h2 className="rr-auth__title">Create account</h2>
 
         {formError && <div className="rr-form-error">{formError}</div>}
-        {success && <div className="rr-form-success">{success}</div>}
 
         <form onSubmit={handleSubmit} noValidate>
           <div className="rr-field">
