@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import api from '../api/axios';
 import './Home.css';
-import logo from '../assets/rush-republic-logo.png';
+
 
 export default function SocialMediaHome() {
   const [user, setUser] = useState(null);
