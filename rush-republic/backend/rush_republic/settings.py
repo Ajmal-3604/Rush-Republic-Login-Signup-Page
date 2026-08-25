@@ -138,7 +138,14 @@ SIMPLE_JWT = {
 INSTALLED_APPS.append('rest_framework_simplejwt.token_blacklist')
 
 # ---------------------------------------------------------------------------
-# CORS
+# CORS & CSRF
 # ---------------------------------------------------------------------------
-CORS_ALLOWED_ORIGINS = config('CORS_ORIGIN', default='http://localhost:3000', cast=Csv())
+CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL_ORIGINS', default=False, cast=bool)
+cors_origins_raw = config('CORS_ORIGIN', default='http://localhost:3000', cast=Csv())
+CORS_ALLOWED_ORIGINS = [o.strip() for o in cors_origins_raw if o.strip()]
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.vercel\.app$",
+]
+CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
 CORS_ALLOW_CREDENTIALS = True
+
